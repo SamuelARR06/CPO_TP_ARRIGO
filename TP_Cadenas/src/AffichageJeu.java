@@ -100,7 +100,7 @@ public class AffichageJeu extends javax.swing.JFrame {
                         UP_BTN_2ActionPerformed(evt);
                     }
                 });
-                getContentPane().add(UP_BTN_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(155, 97, 40, -1));
+                getContentPane().add(UP_BTN_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 40, -1));
 
                 UP_BTN_3.setText("/\\");
                     UP_BTN_3.addActionListener(new java.awt.event.ActionListener() {
@@ -116,7 +116,7 @@ public class AffichageJeu extends javax.swing.JFrame {
                                 UP_BTN_4ActionPerformed(evt);
                             }
                         });
-                        getContentPane().add(UP_BTN_4, new org.netbeans.lib.awtextra.AbsoluteConstraints(325, 97, 40, -1));
+                        getContentPane().add(UP_BTN_4, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 100, 40, -1));
 
                         DOWN_BTN_1.setText("\\/");
                         DOWN_BTN_1.addActionListener(new java.awt.event.ActionListener() {
@@ -124,7 +124,7 @@ public class AffichageJeu extends javax.swing.JFrame {
                                 DOWN_BTN_1ActionPerformed(evt);
                             }
                         });
-                        getContentPane().add(DOWN_BTN_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(71, 283, 40, -1));
+                        getContentPane().add(DOWN_BTN_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 280, 40, -1));
 
                         DOWN_BTN_2.setText("\\/");
                         DOWN_BTN_2.addActionListener(new java.awt.event.ActionListener() {
@@ -132,7 +132,7 @@ public class AffichageJeu extends javax.swing.JFrame {
                                 DOWN_BTN_2ActionPerformed(evt);
                             }
                         });
-                        getContentPane().add(DOWN_BTN_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(155, 283, 40, -1));
+                        getContentPane().add(DOWN_BTN_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 280, 40, -1));
 
                         DOWN_BTN_3.setText("\\/");
                         DOWN_BTN_3.addActionListener(new java.awt.event.ActionListener() {
@@ -140,7 +140,7 @@ public class AffichageJeu extends javax.swing.JFrame {
                                 DOWN_BTN_3ActionPerformed(evt);
                             }
                         });
-                        getContentPane().add(DOWN_BTN_3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 283, 40, -1));
+                        getContentPane().add(DOWN_BTN_3, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 280, 40, -1));
 
                         DOWN_BTN_4.setText("\\/");
                         DOWN_BTN_4.addActionListener(new java.awt.event.ActionListener() {
@@ -148,7 +148,7 @@ public class AffichageJeu extends javax.swing.JFrame {
                                 DOWN_BTN_4ActionPerformed(evt);
                             }
                         });
-                        getContentPane().add(DOWN_BTN_4, new org.netbeans.lib.awtextra.AbsoluteConstraints(319, 283, 40, -1));
+                        getContentPane().add(DOWN_BTN_4, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 280, 40, -1));
 
                         Recommencer.setText("Recommencer");
                         Recommencer.addActionListener(new java.awt.event.ActionListener() {
@@ -183,7 +183,7 @@ private final TP_Cadenas2 jeu = new TP_Cadenas2();
 
     private void DOWN_BTN_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DOWN_BTN_2ActionPerformed
         int nouveau = jeu.diminuerChiffre(0);
-    CHIFFRE4.setText(String.valueOf(nouveau));
+    CHIFFRE2.setText(String.valueOf(nouveau));
     }//GEN-LAST:event_DOWN_BTN_2ActionPerformed
 
     private void DOWN_BTN_3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DOWN_BTN_3ActionPerformed
@@ -193,7 +193,7 @@ private final TP_Cadenas2 jeu = new TP_Cadenas2();
 
     private void DOWN_BTN_4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DOWN_BTN_4ActionPerformed
         int nouveau = jeu.diminuerChiffre(0);
-    CHIFFRE2.setText(String.valueOf(nouveau));
+    CHIFFRE4.setText(String.valueOf(nouveau));
     }//GEN-LAST:event_DOWN_BTN_4ActionPerformed
 
     private void UP_BTN_1_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UP_BTN_1_ActionPerformed
@@ -203,7 +203,7 @@ private final TP_Cadenas2 jeu = new TP_Cadenas2();
 
     private void UP_BTN_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UP_BTN_2ActionPerformed
             int nouveau = jeu.augmenterChiffre(0);
-    CHIFFRE4.setText(String.valueOf(nouveau));
+    CHIFFRE2.setText(String.valueOf(nouveau));
     }//GEN-LAST:event_UP_BTN_2ActionPerformed
 
     private void UP_BTN_3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UP_BTN_3ActionPerformed
@@ -213,7 +213,7 @@ private final TP_Cadenas2 jeu = new TP_Cadenas2();
 
     private void UP_BTN_4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UP_BTN_4ActionPerformed
             int nouveau = jeu.augmenterChiffre(0);
-    CHIFFRE2.setText(String.valueOf(nouveau));
+    CHIFFRE4.setText(String.valueOf(nouveau));
     }//GEN-LAST:event_UP_BTN_4ActionPerformed
 
     private void EssayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EssayerActionPerformed
@@ -221,7 +221,7 @@ int[] resultats = jeu.verifier();
     NBRJUSTES.setText("Nombre de chiffres justes: " + resultats[0]);
     NBRHAUTS.setText("Nombre de chiffres trop hauts: " + resultats[1]);
     NBRBAS.setText("Nombre de chiffres trop bas: " + resultats[2]);
-    NBRSUR5.setText(jeu.getTentativesRestantes() + "/5");
+    NBRSUR5.setText(jeu.getTentativesUtilisees() + "/5");
     }//GEN-LAST:event_EssayerActionPerformed
 
     private void RecommencerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecommencerActionPerformed
@@ -233,7 +233,7 @@ int[] resultats = jeu.verifier();
     NBRJUSTES.setText("Nombre de chiffres justes: 0");
     NBRHAUTS.setText("Nombre de chiffres trop hauts: 0");
     NBRBAS.setText("Nombre de chiffres trop bas: 0");
-    NBRSUR5.setText("5/5");
+    NBRSUR5.setText("0/5");
     }//GEN-LAST:event_RecommencerActionPerformed
 
     /**
