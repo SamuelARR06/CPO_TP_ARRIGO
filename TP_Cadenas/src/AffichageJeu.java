@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package tp_cadenas;
+
 
 /**
  *
@@ -17,6 +17,7 @@ public class AffichageJeu extends javax.swing.JFrame {
      */
     public AffichageJeu() {
         initComponents();
+        
     }
 
     /**
@@ -30,9 +31,9 @@ public class AffichageJeu extends javax.swing.JFrame {
 
         Explication = new javax.swing.JLabel();
         CHIFFRE1 = new javax.swing.JLabel();
-        CHIFFRE2 = new javax.swing.JLabel();
-        CHIFFRE3 = new javax.swing.JLabel();
         CHIFFRE4 = new javax.swing.JLabel();
+        CHIFFRE3 = new javax.swing.JLabel();
+        CHIFFRE2 = new javax.swing.JLabel();
         NBRJUSTES = new javax.swing.JLabel();
         NBRHAUTS = new javax.swing.JLabel();
         NBRBAS = new javax.swing.JLabel();
@@ -61,20 +62,20 @@ public class AffichageJeu extends javax.swing.JFrame {
         CHIFFRE1.setAlignmentX(0.5F);
         getContentPane().add(CHIFFRE1, new org.netbeans.lib.awtextra.AbsoluteConstraints(77, 126, 40, 132));
 
-        CHIFFRE2.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        CHIFFRE2.setText("0");
-        CHIFFRE2.setAlignmentX(0.5F);
-        getContentPane().add(CHIFFRE2, new org.netbeans.lib.awtextra.AbsoluteConstraints(325, 126, 40, 132));
+        CHIFFRE4.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        CHIFFRE4.setText("0");
+        CHIFFRE4.setAlignmentX(0.5F);
+        getContentPane().add(CHIFFRE4, new org.netbeans.lib.awtextra.AbsoluteConstraints(325, 126, 40, 132));
 
         CHIFFRE3.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         CHIFFRE3.setText("0");
         CHIFFRE3.setAlignmentX(0.5F);
         getContentPane().add(CHIFFRE3, new org.netbeans.lib.awtextra.AbsoluteConstraints(246, 126, 40, 132));
 
-        CHIFFRE4.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        CHIFFRE4.setText("0");
-        CHIFFRE4.setAlignmentX(0.5F);
-        getContentPane().add(CHIFFRE4, new org.netbeans.lib.awtextra.AbsoluteConstraints(161, 126, 40, 132));
+        CHIFFRE2.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        CHIFFRE2.setText("0");
+        CHIFFRE2.setAlignmentX(0.5F);
+        getContentPane().add(CHIFFRE2, new org.netbeans.lib.awtextra.AbsoluteConstraints(161, 126, 40, 132));
 
         NBRJUSTES.setText("Nombre de chiffres justes:           0");
         getContentPane().add(NBRJUSTES, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 393, 185, -1));
@@ -86,15 +87,35 @@ public class AffichageJeu extends javax.swing.JFrame {
         getContentPane().add(NBRBAS, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 440, -1, -1));
 
         UP_BTN_1_.setText("/\\");
+            UP_BTN_1_.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    UP_BTN_1_ActionPerformed(evt);
+                }
+            });
             getContentPane().add(UP_BTN_1_, new org.netbeans.lib.awtextra.AbsoluteConstraints(71, 97, 40, -1));
 
             UP_BTN_2.setText("/\\");
+                UP_BTN_2.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        UP_BTN_2ActionPerformed(evt);
+                    }
+                });
                 getContentPane().add(UP_BTN_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(155, 97, 40, -1));
 
                 UP_BTN_3.setText("/\\");
+                    UP_BTN_3.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                            UP_BTN_3ActionPerformed(evt);
+                        }
+                    });
                     getContentPane().add(UP_BTN_3, new org.netbeans.lib.awtextra.AbsoluteConstraints(246, 97, 40, -1));
 
                     UP_BTN_4.setText("/\\");
+                        UP_BTN_4.addActionListener(new java.awt.event.ActionListener() {
+                            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                UP_BTN_4ActionPerformed(evt);
+                            }
+                        });
                         getContentPane().add(UP_BTN_4, new org.netbeans.lib.awtextra.AbsoluteConstraints(325, 97, 40, -1));
 
                         DOWN_BTN_1.setText("\\/");
@@ -130,9 +151,19 @@ public class AffichageJeu extends javax.swing.JFrame {
                         getContentPane().add(DOWN_BTN_4, new org.netbeans.lib.awtextra.AbsoluteConstraints(319, 283, 40, -1));
 
                         Recommencer.setText("Recommencer");
+                        Recommencer.addActionListener(new java.awt.event.ActionListener() {
+                            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                RecommencerActionPerformed(evt);
+                            }
+                        });
                         getContentPane().add(Recommencer, new org.netbeans.lib.awtextra.AbsoluteConstraints(401, 437, -1, -1));
 
                         Essayer.setText("Essayer");
+                        Essayer.addActionListener(new java.awt.event.ActionListener() {
+                            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                EssayerActionPerformed(evt);
+                            }
+                        });
                         getContentPane().add(Essayer, new org.netbeans.lib.awtextra.AbsoluteConstraints(415, 188, -1, -1));
 
                         Tentatives.setText("Tentatives : ");
@@ -144,22 +175,66 @@ public class AffichageJeu extends javax.swing.JFrame {
 
                         pack();
                     }// </editor-fold>//GEN-END:initComponents
-
+private final TP_Cadenas2 jeu = new TP_Cadenas2();
     private void DOWN_BTN_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DOWN_BTN_1ActionPerformed
-        // TODO add your handling code here:
+    int nouveau = jeu.diminuerChiffre(0);
+    CHIFFRE1.setText(String.valueOf(nouveau));
     }//GEN-LAST:event_DOWN_BTN_1ActionPerformed
 
     private void DOWN_BTN_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DOWN_BTN_2ActionPerformed
-        // TODO add your handling code here:
+        int nouveau = jeu.diminuerChiffre(0);
+    CHIFFRE4.setText(String.valueOf(nouveau));
     }//GEN-LAST:event_DOWN_BTN_2ActionPerformed
 
     private void DOWN_BTN_3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DOWN_BTN_3ActionPerformed
-        // TODO add your handling code here:
+        int nouveau = jeu.diminuerChiffre(0);
+    CHIFFRE3.setText(String.valueOf(nouveau));
     }//GEN-LAST:event_DOWN_BTN_3ActionPerformed
 
     private void DOWN_BTN_4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DOWN_BTN_4ActionPerformed
-        // TODO add your handling code here:
+        int nouveau = jeu.diminuerChiffre(0);
+    CHIFFRE2.setText(String.valueOf(nouveau));
     }//GEN-LAST:event_DOWN_BTN_4ActionPerformed
+
+    private void UP_BTN_1_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UP_BTN_1_ActionPerformed
+    int nouveau = jeu.augmenterChiffre(0);
+    CHIFFRE1.setText(String.valueOf(nouveau));
+    }//GEN-LAST:event_UP_BTN_1_ActionPerformed
+
+    private void UP_BTN_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UP_BTN_2ActionPerformed
+            int nouveau = jeu.augmenterChiffre(0);
+    CHIFFRE4.setText(String.valueOf(nouveau));
+    }//GEN-LAST:event_UP_BTN_2ActionPerformed
+
+    private void UP_BTN_3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UP_BTN_3ActionPerformed
+           int nouveau = jeu.augmenterChiffre(0);
+    CHIFFRE3.setText(String.valueOf(nouveau));
+    }//GEN-LAST:event_UP_BTN_3ActionPerformed
+
+    private void UP_BTN_4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UP_BTN_4ActionPerformed
+            int nouveau = jeu.augmenterChiffre(0);
+    CHIFFRE2.setText(String.valueOf(nouveau));
+    }//GEN-LAST:event_UP_BTN_4ActionPerformed
+
+    private void EssayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EssayerActionPerformed
+int[] resultats = jeu.verifier();
+    NBRJUSTES.setText("Nombre de chiffres justes: " + resultats[0]);
+    NBRHAUTS.setText("Nombre de chiffres trop hauts: " + resultats[1]);
+    NBRBAS.setText("Nombre de chiffres trop bas: " + resultats[2]);
+    NBRSUR5.setText(jeu.getTentativesRestantes() + "/5");
+    }//GEN-LAST:event_EssayerActionPerformed
+
+    private void RecommencerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecommencerActionPerformed
+ jeu.recommencer();
+    CHIFFRE1.setText("0");
+    CHIFFRE4.setText("0");
+    CHIFFRE3.setText("0");
+    CHIFFRE2.setText("0");
+    NBRJUSTES.setText("Nombre de chiffres justes: 0");
+    NBRHAUTS.setText("Nombre de chiffres trop hauts: 0");
+    NBRBAS.setText("Nombre de chiffres trop bas: 0");
+    NBRSUR5.setText("5/5");
+    }//GEN-LAST:event_RecommencerActionPerformed
 
     /**
      * @param args the command line arguments
