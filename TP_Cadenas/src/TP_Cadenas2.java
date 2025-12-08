@@ -1,13 +1,13 @@
 public class TP_Cadenas2 {
     private int[] codeSecret;           // Le code à trouver (4 chiffres)
     private int[] saisie;               // La saisie du joueur (4 chiffres)
-    private int tentativesRestantes;
+    private int tentativesUtilisees;
     
     // Constructeur
     public TP_Cadenas2() {
         codeSecret = new int[4];
         saisie = new int[4];
-        tentativesRestantes = 5;
+        tentativesUtilisees = 0;
         genererCode();
     }
     
@@ -44,23 +44,33 @@ public class TP_Cadenas2 {
             }
         }
         
-        tentativesRestantes--;
+        tentativesUtilisees++;
         return new int[] {justes, trop_hauts, trop_bas};
     }
-    
+    public boolean aGagne() {
+    return saisie[0] == codeSecret[0]
+        && saisie[1] == codeSecret[1]
+        && saisie[2] == codeSecret[2]
+        && saisie[3] == codeSecret[3];
+}
+
+public boolean aPerdu() {
+    return !aGagne() && tentativesUtilisees >= 5;
+}
+
     // Getters
     public int[] getSaisie() {
         return saisie;
     }
     
-    public int getTentativesRestantes() {
-        return tentativesRestantes;
+    public int getTentativesUtilisees() {
+        return tentativesUtilisees;
     }
     
     public void recommencer() {
         codeSecret = new int[4];
         saisie = new int[4];
-        tentativesRestantes = 5;
+        tentativesUtilisees = 0;
         genererCode();
     }
 }

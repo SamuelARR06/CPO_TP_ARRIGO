@@ -17,8 +17,9 @@ public class AffichageJeu extends javax.swing.JFrame {
      */
     public AffichageJeu() {
         initComponents();
-        
+        VICDEF.setText(""); 
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -49,6 +50,7 @@ public class AffichageJeu extends javax.swing.JFrame {
         Essayer = new javax.swing.JButton();
         Tentatives = new javax.swing.JLabel();
         NBRSUR5 = new javax.swing.JLabel();
+        VICDEF = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -65,7 +67,7 @@ public class AffichageJeu extends javax.swing.JFrame {
         CHIFFRE4.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         CHIFFRE4.setText("0");
         CHIFFRE4.setAlignmentX(0.5F);
-        getContentPane().add(CHIFFRE4, new org.netbeans.lib.awtextra.AbsoluteConstraints(325, 126, 40, 132));
+        getContentPane().add(CHIFFRE4, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 130, 40, 132));
 
         CHIFFRE3.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         CHIFFRE3.setText("0");
@@ -108,7 +110,7 @@ public class AffichageJeu extends javax.swing.JFrame {
                             UP_BTN_3ActionPerformed(evt);
                         }
                     });
-                    getContentPane().add(UP_BTN_3, new org.netbeans.lib.awtextra.AbsoluteConstraints(246, 97, 40, -1));
+                    getContentPane().add(UP_BTN_3, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 100, 40, -1));
 
                     UP_BTN_4.setText("/\\");
                         UP_BTN_4.addActionListener(new java.awt.event.ActionListener() {
@@ -173,26 +175,31 @@ public class AffichageJeu extends javax.swing.JFrame {
                         NBRSUR5.setText("0/5 ");
                         getContentPane().add(NBRSUR5, new org.netbeans.lib.awtextra.AbsoluteConstraints(415, 370, 72, 51));
 
+                        VICDEF.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+                        VICDEF.setForeground(new java.awt.Color(0, 0, 250));
+                        VICDEF.setText("GG BGGGGG");
+                        getContentPane().add(VICDEF, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, 510, 80));
+
                         pack();
                     }// </editor-fold>//GEN-END:initComponents
 private final TP_Cadenas2 jeu = new TP_Cadenas2();
     private void DOWN_BTN_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DOWN_BTN_1ActionPerformed
-    int nouveau = jeu.diminuerChiffre(0);
+    int nouveau = jeu.diminuerChiffre(0 );
     CHIFFRE1.setText(String.valueOf(nouveau));
     }//GEN-LAST:event_DOWN_BTN_1ActionPerformed
 
     private void DOWN_BTN_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DOWN_BTN_2ActionPerformed
-        int nouveau = jeu.diminuerChiffre(0);
+        int nouveau = jeu.diminuerChiffre(1);
     CHIFFRE2.setText(String.valueOf(nouveau));
     }//GEN-LAST:event_DOWN_BTN_2ActionPerformed
 
     private void DOWN_BTN_3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DOWN_BTN_3ActionPerformed
-        int nouveau = jeu.diminuerChiffre(0);
+        int nouveau = jeu.diminuerChiffre(2);
     CHIFFRE3.setText(String.valueOf(nouveau));
     }//GEN-LAST:event_DOWN_BTN_3ActionPerformed
 
     private void DOWN_BTN_4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DOWN_BTN_4ActionPerformed
-        int nouveau = jeu.diminuerChiffre(0);
+        int nouveau = jeu.diminuerChiffre(3);
     CHIFFRE4.setText(String.valueOf(nouveau));
     }//GEN-LAST:event_DOWN_BTN_4ActionPerformed
 
@@ -202,17 +209,17 @@ private final TP_Cadenas2 jeu = new TP_Cadenas2();
     }//GEN-LAST:event_UP_BTN_1_ActionPerformed
 
     private void UP_BTN_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UP_BTN_2ActionPerformed
-            int nouveau = jeu.augmenterChiffre(0);
+            int nouveau = jeu.augmenterChiffre(1);
     CHIFFRE2.setText(String.valueOf(nouveau));
     }//GEN-LAST:event_UP_BTN_2ActionPerformed
 
     private void UP_BTN_3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UP_BTN_3ActionPerformed
-           int nouveau = jeu.augmenterChiffre(0);
+           int nouveau = jeu.augmenterChiffre(2);
     CHIFFRE3.setText(String.valueOf(nouveau));
     }//GEN-LAST:event_UP_BTN_3ActionPerformed
 
     private void UP_BTN_4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UP_BTN_4ActionPerformed
-            int nouveau = jeu.augmenterChiffre(0);
+            int nouveau = jeu.augmenterChiffre(3);
     CHIFFRE4.setText(String.valueOf(nouveau));
     }//GEN-LAST:event_UP_BTN_4ActionPerformed
 
@@ -222,6 +229,14 @@ int[] resultats = jeu.verifier();
     NBRHAUTS.setText("Nombre de chiffres trop hauts: " + resultats[1]);
     NBRBAS.setText("Nombre de chiffres trop bas: " + resultats[2]);
     NBRSUR5.setText(jeu.getTentativesUtilisees() + "/5");
+     if (jeu.aGagne()) {
+        VICDEF.setForeground(new java.awt.Color(0, 150, 0));
+        VICDEF.setText("GG BGGGGG!!!");
+    } else if (jeu.aPerdu()) {
+        VICDEF.setForeground(new java.awt.Color(200, 0, 0));
+        VICDEF.setText("woinwoinwoin (musique de Mario)");
+    }
+
     }//GEN-LAST:event_EssayerActionPerformed
 
     private void RecommencerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecommencerActionPerformed
@@ -234,6 +249,7 @@ int[] resultats = jeu.verifier();
     NBRHAUTS.setText("Nombre de chiffres trop hauts: 0");
     NBRBAS.setText("Nombre de chiffres trop bas: 0");
     NBRSUR5.setText("0/5");
+    VICDEF.setText("");  
     }//GEN-LAST:event_RecommencerActionPerformed
 
     /**
@@ -282,5 +298,6 @@ int[] resultats = jeu.verifier();
     private javax.swing.JButton UP_BTN_2;
     private javax.swing.JButton UP_BTN_3;
     private javax.swing.JButton UP_BTN_4;
+    private javax.swing.JLabel VICDEF;
     // End of variables declaration//GEN-END:variables
 }
