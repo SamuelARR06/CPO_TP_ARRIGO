@@ -224,18 +224,32 @@ private final TP_Cadenas2 jeu = new TP_Cadenas2();
     }//GEN-LAST:event_UP_BTN_4ActionPerformed
 
     private void EssayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EssayerActionPerformed
-int[] resultats = jeu.verifier();
+
+    int[] resultats = jeu.verifier();
     NBRJUSTES.setText("Nombre de chiffres justes: " + resultats[0]);
     NBRHAUTS.setText("Nombre de chiffres trop hauts: " + resultats[1]);
     NBRBAS.setText("Nombre de chiffres trop bas: " + resultats[2]);
     NBRSUR5.setText(jeu.getTentativesUtilisees() + "/5");
-     if (jeu.aGagne()) {
+
+    if (jeu.aGagne()) {
         VICDEF.setForeground(new java.awt.Color(0, 150, 0));
         VICDEF.setText("GG BGGGGG!!!");
     } else if (jeu.aPerdu()) {
         VICDEF.setForeground(new java.awt.Color(200, 0, 0));
-        VICDEF.setText("woinwoinwoin (musique de Mario)");
+        VICDEF.setText("Perdu…");
+
+        int[] code = jeu.getCodeSecret();
+        String msg = "Perdu!! Le code était : " + code[0] + code[1] + code[2] + code[3];
+
+        javax.swing.JOptionPane.showMessageDialog(
+            this,
+            msg,
+            "Code secret",
+            javax.swing.JOptionPane.INFORMATION_MESSAGE
+        );
     }
+
+
 
     }//GEN-LAST:event_EssayerActionPerformed
 

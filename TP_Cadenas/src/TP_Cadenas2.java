@@ -66,7 +66,10 @@ public boolean aPerdu() {
     public int getTentativesUtilisees() {
         return tentativesUtilisees;
     }
-    
+    public int[] getCodeSecret() {
+    return codeSecret;
+}
+
     public void recommencer() {
         codeSecret = new int[4];
         saisie = new int[4];
