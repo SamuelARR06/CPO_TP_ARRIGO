@@ -20,6 +20,11 @@ public class Partie {
         nbCoups = 0;
         grille.melangerMatriceAleatoirement(10);
     }
+    
+    public GrilleDeCellules getGrille() {
+    return grille;
+}
+
 
     /**
      * Lance la partie en mode console.

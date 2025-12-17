@@ -128,6 +128,9 @@ public class GrilleDeCellules {
             activerLigneColonneOuDiagonaleAleatoire();
         }
     }
+public CelluleLumineuse getCellule(int ligne, int colonne) {
+    return matriceCellules[ligne][colonne];
+}
 
     /**
      * Vérifie si toutes les cellules de la grille sont éteintes.
