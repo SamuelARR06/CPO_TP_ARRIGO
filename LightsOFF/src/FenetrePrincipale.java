@@ -5,62 +5,111 @@ public class FenetrePrincipale extends JFrame {
 
     private Partie partie;
     private JButton[][] boutons;
+    private JLabel labelCoups;
 
     private final int TAILLE = 5;
 
     public FenetrePrincipale() {
-        initComponents(); // NetBeans OK
+
+        // ===== Fenêtre =====
+        setTitle("Light Off");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new BorderLayout());
 
         // ===== Modèle =====
         partie = new Partie(TAILLE, TAILLE);
         partie.initialiserPartie();
 
-        // ===== Grille principale 6x6 =====
-        JPanel panelPrincipal = new JPanel(new GridLayout(TAILLE + 1, TAILLE + 1));
-        setContentPane(panelPrincipal);
-
+        // ===== GRILLE 6x6 =====
+        JPanel panelGrille = new JPanel(new GridLayout(TAILLE + 1, TAILLE + 1));
         boutons = new JButton[TAILLE][TAILLE];
 
-        // Case (0,0) vide
-        JButton coin = new JButton("");
-        coin.setEnabled(false);
-        panelPrincipal.add(coin);
+        // Coin vide
+        panelGrille.add(new JLabel(""));
 
         // Boutons colonnes
         for (int j = 0; j < TAILLE; j++) {
             final int col = j;
             JButton b = new JButton("C" + j);
             b.addActionListener(e -> {
-                partie.getGrille().activerColonneDeCellules(col);
-                rafraichirGrille();
+                partie.jouerColonne(col);
+                mettreAJour();
             });
-            panelPrincipal.add(b);
+            panelGrille.add(b);
         }
 
         // Lignes + cellules
         for (int i = 0; i < TAILLE; i++) {
 
             final int lig = i;
-            JButton bLigne = new JButton("L" + i);
-            bLigne.addActionListener(e -> {
-                partie.getGrille().activerLigneDeCellules(lig);
-                rafraichirGrille();
+            JButton bL = new JButton("L" + i);
+            bL.addActionListener(e -> {
+                partie.jouerLigne(lig);
+                mettreAJour();
             });
-            panelPrincipal.add(bLigne);
+            panelGrille.add(bL);
 
             for (int j = 0; j < TAILLE; j++) {
                 JButton cell = new JButton();
                 cell.setEnabled(false);
+                cell.setOpaque(true);
+                cell.setBorderPainted(true);
                 boutons[i][j] = cell;
-                panelPrincipal.add(cell);
+                panelGrille.add(cell);
             }
         }
 
-        rafraichirGrille();
+        add(panelGrille, BorderLayout.CENTER);
 
+        // ===== BAS =====
+        JPanel panelBas = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
+        JButton reset = new JButton("Recommencer");
+        reset.addActionListener(e -> {
+            partie.initialiserPartie();
+            mettreAJour();
+        });
+
+        JButton diagDesc = new JButton("Diagonale ↘");
+        diagDesc.addActionListener(e -> {
+            partie.jouerDiagonaleDescendante();
+            mettreAJour();
+        });
+
+        JButton diagMont = new JButton("Diagonale ↗");
+        diagMont.addActionListener(e -> {
+            partie.jouerDiagonaleMontante();
+            mettreAJour();
+        });
+
+        labelCoups = new JLabel("Coups : 0");
+
+        panelBas.add(reset);
+        panelBas.add(labelCoups);
+        panelBas.add(diagDesc);
+        panelBas.add(diagMont);
+
+        add(panelBas, BorderLayout.SOUTH);
+
+        // ===== FIN =====
+        mettreAJour();
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
+    }
+
+    private void mettreAJour() {
+        rafraichirGrille();
+        labelCoups.setText("Coups : " + partie.getNbCoups());
+
+        if (partie.estGagnee()) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "🎉 Victoire !\nNombre de coups : " + partie.getNbCoups(),
+                    "Gagné",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
+        }
     }
 
     private void rafraichirGrille() {
@@ -69,16 +118,14 @@ public class FenetrePrincipale extends JFrame {
         for (int i = 0; i < TAILLE; i++) {
             for (int j = 0; j < TAILLE; j++) {
                 boutons[i][j].setBackground(
-                    g.getCellule(i, j).getEtat()
-                        ? Color.YELLOW
-                        : Color.DARK_GRAY
+                        g.getCellule(i, j).getEtat()
+                                ? Color.YELLOW
+                                : Color.DARK_GRAY
                 );
             }
         }
     }
     
-    
-                
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -157,10 +204,11 @@ public class FenetrePrincipale extends JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public static void main(String[] args) {
+public static void main(String[] args) {
         SwingUtilities.invokeLater(FenetrePrincipale::new);
     }
 
+     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
