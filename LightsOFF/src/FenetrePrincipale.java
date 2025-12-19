@@ -1,132 +1,84 @@
-public class FenetrePrincipale extends javax.swing.JFrame {
+import javax.swing.*;
+import java.awt.*;
+
+public class FenetrePrincipale extends JFrame {
 
     private Partie partie;
-    private javax.swing.JButton[][] boutons;
-    private javax.swing.JPanel panelColonnes;
-private javax.swing.JPanel panelLignes;
-private javax.swing.JPanel panelBas;
+    private JButton[][] boutons;
 
-    private static final java.util.logging.Logger logger =
-            java.util.logging.Logger.getLogger(FenetrePrincipale.class.getName());
+    private final int TAILLE = 5;
 
     public FenetrePrincipale() {
-        initComponents();
-        getContentPane().setLayout(new java.awt.BorderLayout());
-        getContentPane().removeAll();
-getContentPane().add(panelGrille, java.awt.BorderLayout.CENTER);
-panelColonnes = new javax.swing.JPanel();
-panelColonnes.setLayout(new java.awt.GridLayout(1, 5));
+        initComponents(); // NetBeans OK
 
-for (int j = 0; j < 5; j++) {
-    final int col = j;
-    javax.swing.JButton b = new javax.swing.JButton("C" + j);
-    b.addActionListener(e -> {
-        partie.getGrille().activerColonneDeCellules(col);
-        rafraichirGrille();
-    });
-    panelColonnes.add(b);
-}
-
-getContentPane().add(panelColonnes, java.awt.BorderLayout.NORTH);
-panelLignes = new javax.swing.JPanel();
-panelLignes.setLayout(new java.awt.GridLayout(5, 1));
-
-for (int i = 0; i < 5; i++) {
-    final int lig = i;
-    javax.swing.JButton b = new javax.swing.JButton("L" + i);
-    b.addActionListener(e -> {
-        partie.getGrille().activerLigneDeCellules(lig);
-        rafraichirGrille();
-    });
-    panelLignes.add(b);
-}
-
-getContentPane().add(panelLignes, java.awt.BorderLayout.WEST);
-panelBas = new javax.swing.JPanel();
-
-javax.swing.JButton btnDiagMont = new javax.swing.JButton("Diagonale ↗");
-btnDiagMont.addActionListener(e -> {
-    partie.getGrille().activerDiagonaleMontante();
-    rafraichirGrille();
-});
-
-javax.swing.JButton btnDiagDesc = new javax.swing.JButton("Diagonale ↘");
-btnDiagDesc.addActionListener(e -> {
-    partie.getGrille().activerDiagonaleDescendante();
-    rafraichirGrille();
-});
-
-javax.swing.JButton btnReset = new javax.swing.JButton("Recommencer");
-btnReset.addActionListener(e -> {
-    partie.initialiserPartie();
-    rafraichirGrille();
-});
-
-panelBas.add(btnDiagMont);
-panelBas.add(btnDiagDesc);
-panelBas.add(btnReset);
-
-getContentPane().add(panelBas, java.awt.BorderLayout.SOUTH);
-revalidate();
-repaint();
-
-
-
-
-
-        int taille = 5;
-
-        // 1️⃣ Initialisation du modèle
-        partie = new Partie(taille, taille);
+        // ===== Modèle =====
+        partie = new Partie(TAILLE, TAILLE);
         partie.initialiserPartie();
 
-        // 2️⃣ Création de la grille graphique
-        boutons = new javax.swing.JButton[taille][taille];
-        panelGrille.setLayout(new java.awt.GridLayout(taille, taille));
+        // ===== Grille principale 6x6 =====
+        JPanel panelPrincipal = new JPanel(new GridLayout(TAILLE + 1, TAILLE + 1));
+        setContentPane(panelPrincipal);
 
-        for (int i = 0; i < taille; i++) {
-            for (int j = 0; j < taille; j++) {
-                final int ligne = i;
+        boutons = new JButton[TAILLE][TAILLE];
 
-javax.swing.JButton b = new javax.swing.JButton();
-b.addActionListener(e -> {
-    partie.getGrille().activerLigneDeCellules(ligne);
-    rafraichirGrille();
-});
+        // Case (0,0) vide
+        JButton coin = new JButton("");
+        coin.setEnabled(false);
+        panelPrincipal.add(coin);
 
-                
-                boutons[i][j] = b;
-                panelGrille.add(b);
+        // Boutons colonnes
+        for (int j = 0; j < TAILLE; j++) {
+            final int col = j;
+            JButton b = new JButton("C" + j);
+            b.addActionListener(e -> {
+                partie.getGrille().activerColonneDeCellules(col);
+                rafraichirGrille();
+            });
+            panelPrincipal.add(b);
+        }
+
+        // Lignes + cellules
+        for (int i = 0; i < TAILLE; i++) {
+
+            final int lig = i;
+            JButton bLigne = new JButton("L" + i);
+            bLigne.addActionListener(e -> {
+                partie.getGrille().activerLigneDeCellules(lig);
+                rafraichirGrille();
+            });
+            panelPrincipal.add(bLigne);
+
+            for (int j = 0; j < TAILLE; j++) {
+                JButton cell = new JButton();
+                cell.setEnabled(false);
+                boutons[i][j] = cell;
+                panelPrincipal.add(cell);
             }
         }
 
-        // 3️⃣ Rafraîchissement
-        panelGrille.revalidate();
-        panelGrille.repaint();
         rafraichirGrille();
+
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
-    
+
     private void rafraichirGrille() {
         GrilleDeCellules g = partie.getGrille();
 
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                boolean etat = g.getCellule(i, j).getEtat();
+        for (int i = 0; i < TAILLE; i++) {
+            for (int j = 0; j < TAILLE; j++) {
                 boutons[i][j].setBackground(
-                        etat ? java.awt.Color.YELLOW : java.awt.Color.DARK_GRAY
+                    g.getCellule(i, j).getEtat()
+                        ? Color.YELLOW
+                        : Color.DARK_GRAY
                 );
             }
         }
     }
-
     
-
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
-    @SuppressWarnings("unchecked")
+    
+                
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -205,29 +157,8 @@ b.addActionListener(e -> {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new FenetrePrincipale().setVisible(true));
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(FenetrePrincipale::new);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
