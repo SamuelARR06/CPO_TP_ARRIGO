@@ -10,7 +10,7 @@ public class Partie {
 
     public void initialiserPartie() {
     grille.eteindreToutesLesCellules();
-    grille.melangerMatriceAleatoirement(10); // ← IMPORTANT
+    grille.melangerMatriceAleatoirement(20); // changer la dificulté: 20 Difficile, 15 moyen...
     nbCoups = 0;
 }
 

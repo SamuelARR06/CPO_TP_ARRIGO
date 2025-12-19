@@ -3,115 +3,123 @@ import java.awt.*;
 
 public class FenetrePrincipale extends JFrame {
 
+    // ===== CONSTANTES =====
+    private static final int TAILLE = 5;
+
+    private static final Color ROSE_NEON = new Color(255, 20, 147);
+    private static final Color BLEU_NEON = new Color(0, 200, 255);
+    private static final Color NOIR_FOND = new Color(10, 10, 10);
+
+    // ===== MODELE =====
     private Partie partie;
+
+    // ===== VUE =====
     private JButton[][] boutons;
     private JLabel labelCoups;
 
-    private final int TAILLE = 5;
-
     public FenetrePrincipale() {
 
-        // ===== Fenêtre =====
-        setTitle("Light Off");
+        // ===== FENETRE =====
+        setTitle("Lights Off – Neon Edition");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BorderLayout());
 
-        // ===== Modèle =====
+        // ===== MODELE =====
         partie = new Partie(TAILLE, TAILLE);
         partie.initialiserPartie();
 
-        // ===== GRILLE 6x6 =====
+        // ===== CONTENEUR PRINCIPAL =====
+        JPanel panelPrincipal = new JPanel(new BorderLayout());
+        panelPrincipal.setBackground(Color.BLACK);
+        setContentPane(panelPrincipal);
+
+        // ===== GRILLE 6x6 (boutons + cellules) =====
         JPanel panelGrille = new JPanel(new GridLayout(TAILLE + 1, TAILLE + 1));
+        panelGrille.setBackground(Color.BLACK);
+        panelPrincipal.add(panelGrille, BorderLayout.CENTER);
+
         boutons = new JButton[TAILLE][TAILLE];
 
         // Coin vide
-        panelGrille.add(new JLabel(""));
+        JButton coin = new JButton("");
+        coin.setEnabled(false);
+        coin.setBackground(Color.BLACK);
+        panelGrille.add(coin);
 
         // Boutons colonnes
         for (int j = 0; j < TAILLE; j++) {
             final int col = j;
-            JButton b = new JButton("C" + j);
-            b.addActionListener(e -> {
+            JButton bCol = new JButton("C" + j);
+            bCol.addActionListener(e -> {
                 partie.jouerColonne(col);
-                mettreAJour();
+                mettreAJourApresCoup();
             });
-            panelGrille.add(b);
+            panelGrille.add(bCol);
         }
 
         // Lignes + cellules
         for (int i = 0; i < TAILLE; i++) {
 
             final int lig = i;
-            JButton bL = new JButton("L" + i);
-            bL.addActionListener(e -> {
+            JButton bLigne = new JButton("L" + i);
+            bLigne.addActionListener(e -> {
                 partie.jouerLigne(lig);
-                mettreAJour();
+                mettreAJourApresCoup();
             });
-            panelGrille.add(bL);
+            panelGrille.add(bLigne);
 
             for (int j = 0; j < TAILLE; j++) {
                 JButton cell = new JButton();
                 cell.setEnabled(false);
                 cell.setOpaque(true);
-                cell.setBorderPainted(true);
+                cell.setBackground(NOIR_FOND);
+                cell.setBorder(BorderFactory.createLineBorder(ROSE_NEON, 2));
                 boutons[i][j] = cell;
                 panelGrille.add(cell);
             }
         }
 
-        add(panelGrille, BorderLayout.CENTER);
+        // ===== PANNEAU BAS =====
+        JPanel panelBas = new JPanel();
+        panelBas.setBackground(Color.BLACK);
 
-        // ===== BAS =====
-        JPanel panelBas = new JPanel(new FlowLayout(FlowLayout.CENTER));
-
-        JButton reset = new JButton("Recommencer");
-        reset.addActionListener(e -> {
-            partie.initialiserPartie();
-            mettreAJour();
+        JButton diagMont = new JButton("Diagonale ↗");
+        diagMont.addActionListener(e -> {
+            partie.jouerDiagonaleMontante();
+            mettreAJourApresCoup();
         });
 
         JButton diagDesc = new JButton("Diagonale ↘");
         diagDesc.addActionListener(e -> {
             partie.jouerDiagonaleDescendante();
-            mettreAJour();
+            mettreAJourApresCoup();
         });
 
-        JButton diagMont = new JButton("Diagonale ↗");
-        diagMont.addActionListener(e -> {
-            partie.jouerDiagonaleMontante();
-            mettreAJour();
+        JButton reset = new JButton("Recommencer");
+        reset.addActionListener(e -> {
+            partie.initialiserPartie();
+            rafraichirGrille();
+            labelCoups.setText("Coups : 0");
         });
 
         labelCoups = new JLabel("Coups : 0");
+        labelCoups.setForeground(ROSE_NEON);
+        labelCoups.setFont(new Font("Arial", Font.BOLD, 16));
 
+        panelBas.add(diagMont);
+        panelBas.add(diagDesc);
         panelBas.add(reset);
         panelBas.add(labelCoups);
-        panelBas.add(diagDesc);
-        panelBas.add(diagMont);
 
-        add(panelBas, BorderLayout.SOUTH);
+        panelPrincipal.add(panelBas, BorderLayout.SOUTH);
 
-        // ===== FIN =====
-        mettreAJour();
+        // ===== AFFICHAGE =====
+        rafraichirGrille();
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
     }
 
-    private void mettreAJour() {
-        rafraichirGrille();
-        labelCoups.setText("Coups : " + partie.getNbCoups());
-
-        if (partie.estGagnee()) {
-            JOptionPane.showMessageDialog(
-                    this,
-                    "🎉 Victoire !\nNombre de coups : " + partie.getNbCoups(),
-                    "Gagné",
-                    JOptionPane.INFORMATION_MESSAGE
-            );
-        }
-    }
-
+    // ===== RAFRAICHISSEMENT =====
     private void rafraichirGrille() {
         GrilleDeCellules g = partie.getGrille();
 
@@ -119,13 +127,27 @@ public class FenetrePrincipale extends JFrame {
             for (int j = 0; j < TAILLE; j++) {
                 boutons[i][j].setBackground(
                         g.getCellule(i, j).getEtat()
-                                ? Color.YELLOW
-                                : Color.DARK_GRAY
+                                ? BLEU_NEON
+                                : NOIR_FOND
                 );
             }
         }
     }
-    
+
+    // ===== APRES CHAQUE COUP =====
+    private void mettreAJourApresCoup() {
+        rafraichirGrille();
+        labelCoups.setText("Coups : " + partie.getNbCoups());
+
+        if (partie.estGagnee()) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "🎉 VICTOIRE 🎉\nNombre de coups : " + partie.getNbCoups(),
+                    "Gagné",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
+        }
+    }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -206,7 +228,7 @@ public class FenetrePrincipale extends JFrame {
 
 public static void main(String[] args) {
         SwingUtilities.invokeLater(FenetrePrincipale::new);
-    }
+    }   
 
      
     // Variables declaration - do not modify//GEN-BEGIN:variables
